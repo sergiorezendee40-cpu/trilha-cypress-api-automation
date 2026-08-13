@@ -13,16 +13,23 @@ jobs:
      container: 
       image: cypress/browsers:18.12.0
       options: --user 1001
-      steps:
-            - name: Checkout
-             uses: actions/checkout@v7
+ steps:
+           - name: Checkout
+             uses: actions/checkout@v6
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
-            - name: Cypress run
-             uses: cypress-io/github-action@v7
-      with:
-          build: npm run build
-          start: npm start
+            -name: set up Node.js
+            uses: actions/setup-node@v3.8.1
+            with:
+                node-version: 18
+             -name: Install dependencies  
+             run: npm ci
+           - name: Cypress run
+             uses: cypress-io/github-action@v6
+             with:
+                command: npm run run-other-tests
+                browser: Edge
+     
         env:
           # For recording and parallelization you must set your CYPRESS_RECORD_KEY
           # in GitHub repo → Settings → Secrets → Actions
