@@ -1,38 +1,35 @@
-name: Minha primeira execução co Actions
-#controls when the workflow will run
-on: 
-#Triggers the workflow on push or pull requests event but only for the "main" br
+name: Minha primeira execução com Actions
+
+on:
   push:
-   branches: ["main"]
-   pull_request:
-     branches: ["main"]
-     
-jobs:  
-     cypress-run:
-     runs-on: ubuntu-latest
-     container: 
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    container:
       image: cypress/browsers:18.12.0
       options: --user 1001
-      steps:
-           - name: Checkout
-             uses: actions/checkout@v6
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-            -name: set up Node.js
-            uses: actions/setup-node@v3.8.1
-            with:
-                node-version: 18
-             -name: Install dependencies  
-             run: npm ci
-           - name: Cypress run
-             uses: cypress-io/github-action@v6
-             with:
-                command: npm run run-other-tests
-                browser: Edge
-     
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.8.1
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          command: npm run run-other-tests
+          browser: Edge
         env:
-          # For recording and parallelization you must set your CYPRESS_RECORD_KEY
-          # in GitHub repo → Settings → Secrets → Actions
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # Create a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
