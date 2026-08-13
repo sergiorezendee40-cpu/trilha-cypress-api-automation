@@ -9,9 +9,7 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node-18.12.0-chrome-111
-      options: --user 1001
+    # REMOVA as linhas container e options completamente
 
     steps:
       - name: Checkout
