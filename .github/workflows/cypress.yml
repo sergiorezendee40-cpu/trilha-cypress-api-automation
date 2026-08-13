@@ -10,18 +10,16 @@ on:
 jobs:  
      cypress-run:
      runs-on: ubuntu-latest
-     
      container: 
       image: cypress/browsers:18.12.0
       options: --user 1001
-      
-    steps:
-     name: Checkout
-     uses: actions/checkout@v7
+      steps:
+            - name: Checkout
+             uses: actions/checkout@v7
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
-       name: Cypress run
-       uses: cypress-io/github-action@v7
+            - name: Cypress run
+             uses: cypress-io/github-action@v7
       with:
           build: npm run build
           start: npm start
