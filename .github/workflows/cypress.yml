@@ -1,4 +1,4 @@
-name: Minha primeira execução com Actions
+name: Testes Cypress
 
 on:
   push:
@@ -9,25 +9,21 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    # REMOVA as linhas container e options completamente
 
     steps:
-      - name: Checkout
+      - name: Checkout do código
         uses: actions/checkout@v6
 
-      - name: Set up Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v3.8.1
         with:
           node-version: 18
+          cache: 'npm'
 
-      - name: Install dependencies
+      - name: Instalar dependências
         run: npm ci
 
-      - name: Cypress run
+      - name: Rodar testes Cypress
         uses: cypress-io/github-action@v6
         with:
-          command: npm run run-other-tests
           browser: Edge
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
